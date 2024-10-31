@@ -86,7 +86,12 @@ type StatItemProps = {
   unit?: string; 
 };
 
-const TabBarItem = ({ icon, label }) => (
+type TabBarItemProps = {
+  icon: string;  
+  label: string;
+};
+
+const TabBarItem : React.FC<TabBarItemProps> = ({ icon, label }) => (
   <View style={styles.tabBarItem}>
     <Text style={styles.tabBarIcon}>{icon}</Text>
     <Text style={styles.tabBarLabel}>{label}</Text>
