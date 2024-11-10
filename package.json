@@ -17,7 +17,8 @@
   "dependencies": {
     "@arduino/arduino-iot-client": "^2.0.0",
     "@expo/vector-icons": "^14.0.2",
-    "@react-navigation/native": "^6.0.2",
+    "@react-navigation/bottom-tabs": "^6.6.1",
+    "@react-navigation/native": "^6.1.18",
     "axios": "^1.7.7",
     "expo": "~51.0.28",
     "expo-constants": "~16.0.2",
@@ -32,6 +33,7 @@
     "prop-types": "^15.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.53.1",
     "react-native": "^0.74.5",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-maps": "1.14.0",
@@ -40,7 +42,9 @@
     "react-native-screens": "3.31.1",
     "react-native-web": "~0.19.10",
     "react-navigation-stack": "^2.10.4",
-    "request-promise": "^4.2.6"
+    "request-promise": "^4.2.6",
+    "@react-native-async-storage/async-storage": "1.23.1",
+    "@react-native-community/slider": "4.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

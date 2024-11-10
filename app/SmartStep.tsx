@@ -3,10 +3,11 @@ import { View, Text, Image, StyleSheet, ImageSourcePropType, TouchableOpacity } 
 import MapView from 'react-native-maps';
 import { LinearGradient } from 'expo-linear-gradient';
 import sendSMS from '@/api/sosService';
+import { Link } from 'expo-router';
 
 const SavvyStepperMain = () => {
   const handleButtonClick = () => {
-    sendSMS("3476517362");
+    //sendSMS("3476517362");
   }
 
   return (
@@ -15,7 +16,7 @@ const SavvyStepperMain = () => {
         colors={['#4A90E2', '#357ABD']}
         style={styles.header}
       >
-        <Text style={styles.title}>Savvy Stepper</Text>
+        <Text style={styles.title}>Smart Step</Text>
         <View style={styles.statusContainer}>
           <View style={styles.statusDot} />
           <Text style={styles.status}>Connected</Text>
@@ -49,11 +50,6 @@ const SavvyStepperMain = () => {
             longitudeDelta: 0.01,
           }}
         />
-      </View>
-      <View style={styles.tabBar}>
-        <TabBarItem icon="🧭" label="Explore" />
-        <TabBarItem icon="⚙️" label="Adjustments" />
-        <TabBarItem icon="👤" label="Account" />
       </View>
     </View>
   );
@@ -92,10 +88,10 @@ type TabBarItemProps = {
 };
 
 const TabBarItem : React.FC<TabBarItemProps> = ({ icon, label }) => (
-  <View style={styles.tabBarItem}>
-    <Text style={styles.tabBarIcon}>{icon}</Text>
-    <Text style={styles.tabBarLabel}>{label}</Text>
-  </View>
+    <View style={styles.tabBarItem}>
+      <Text style={styles.tabBarIcon}>{icon}</Text>
+      <Text style={styles.tabBarLabel}>{label}</Text>
+    </View>
 );
 
 const styles = StyleSheet.create({
@@ -233,14 +229,17 @@ const styles = StyleSheet.create({
   },
   tabBarItem: {
     alignItems: 'center',
+    alignContent: 'center'
   },
   tabBarIcon: {
     fontSize: 24,
+    alignSelf: 'center'
   },
   tabBarLabel: {
     fontSize: 12,
     marginTop: 5,
     color: '#6C757D',
+    alignSelf: 'center'
   }
 });
 
