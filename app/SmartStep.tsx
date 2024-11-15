@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, ImageSourcePropType, TouchableOpacity } from 'react-native';
 import MapView from 'react-native-maps';
 import { LinearGradient } from 'expo-linear-gradient';
-import sendSMS from '@/api/sosService';
+// import sendSMS from '@/api/sosService';
 import { Link } from 'expo-router';
 
 const SavvyStepperMain = () => {

@@ -7,7 +7,7 @@ import { sendSMS, sendEmail } from '@/api/sosService';
 import { useState } from 'react';
 import { getEmergencyContact, getEmergencyMessage } from '../api/storageUtil';
 
-const BUTTON_PROPERTY_ID = 'a82fdd31-35a0-405f-b09f-59bbb143e01c';
+const BUTTON_PROPERTY_ID = 'acad4b44-0e57-4b24-bdbc-6d0c7c034086';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
