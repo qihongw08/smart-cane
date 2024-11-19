@@ -27,7 +27,7 @@ const App = () => {
     // Function to fetch data
     const fetchData = async () => {
       try {
-        const buttonPressed : boolean = await getPropertyValue(BUTTON_PROPERTY_ID);
+        const buttonPressed = await getPropertyValue(BUTTON_PROPERTY_ID);
         if (buttonPressed) {
           console.log('sending email...');
           sendEmail('qihongw08@gmail.com');
