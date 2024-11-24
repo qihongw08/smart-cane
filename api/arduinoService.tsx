@@ -1,4 +1,4 @@
-const BASE_URI = 'http://localhost:3000';
+const BASE_URI = 'https://zrcctnww-3000.use.devtunnels.ms';
 import axios from "axios";
 
 async function getToken() {
@@ -15,9 +15,8 @@ async function listProperties() {
 
 async function getPropertyValue(property_id : string) {
     try {
-        console.log(property_id);
         const value = await axios.get(`${BASE_URI}/api/arduino/property/${property_id}`);
-        return value;
+        return value.data.value;
     } catch (error) {
         console.log("Failed to get property", error);
     }
@@ -35,8 +34,6 @@ async function updateProperty(property_id : string, property: any) {
     }
 }
 
-export { listProperties, getPropertyValue, updateProperty };
+getPropertyValue('648d74df-ca66-4c2c-bfa2-003ab4a024b2');
 
-//test
-//listProperties();
-//updateProperty('27a614fa-2fe8-413f-923c-fa44d15c710c');
+export { listProperties, getPropertyValue, updateProperty };

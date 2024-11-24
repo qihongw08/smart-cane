@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Modal, Alert } from 'react-native';
+import { updateProperty } from '@/api/arduinoService';
 import Slider from '@react-native-community/slider';
 import { Ionicons } from '@expo/vector-icons';
 import ColorPicker from 'react-native-wheel-color-picker';
+const HEIGHT_PROPERTY = 'ceb8083a-e458-4afa-9bf5-870ad35447cc';
+const RGB_PROPERTY = '8899946f-4eee-4d86-9db0-879c79da2255';
 
 export default function AdjustmentPage() {
   const [selectedMode, setSelectedMode] = useState('M1');
-  const [height, setHeight] = useState(30);
+  const [height, setHeight] = useState(0);
   const [selectedColor, setSelectedColor] = useState('#FFFFFF');
   const [isColorModalVisible, setIsColorModalVisible] = useState(false);
 
@@ -14,19 +17,36 @@ export default function AdjustmentPage() {
     setHeight(value);
   }
 
-  const saveHeight = () => {
-    Alert.alert('Height Saved', `Height set to ${height} inches`);
+  const saveHeight = async () => {
+    try {
+      updateProperty(HEIGHT_PROPERTY, height);
+      Alert.alert('Height Saved', `Height set to ${height} inches`);
+    } catch {
+      Alert.alert('Something went wrong changing the height');
+    }
   }
 
   const changeColor = async (color: string) => {
     setSelectedColor(color);
   }
 
+  function hexToRgb(hex: string) {
+    // Remove the hash (#) if present
+    hex = hex.replace(/^#/, '');
+  
+    // Parse hex into R, G, B values
+    let r = parseInt(hex.substring(0, 2), 16);
+    let g = parseInt(hex.substring(2, 4), 16);
+    let b = parseInt(hex.substring(4, 6), 16);
+
+    return `${r},${g},${b}`;
+  }
+
   const saveColor = async () => {
     setIsColorModalVisible(false);
     try {
-      // Simulated API call to change the physical cane color
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log(hexToRgb(selectedColor));
+      updateProperty(RGB_PROPERTY, hexToRgb(selectedColor));
       Alert.alert('Color Changed', `Cane color changed to ${selectedColor}`);
     } catch (error) {
       Alert.alert('Error', 'Failed to change cane color');
@@ -75,8 +95,8 @@ export default function AdjustmentPage() {
         <View style={styles.sliderContainer}>
           <Slider
             style={styles.slider}
-            minimumValue={24}
-            maximumValue={36}
+            minimumValue={-6}
+            maximumValue={6}
             step={1}
             minimumTrackTintColor="#4A4A4A"
             maximumTrackTintColor="#000000"

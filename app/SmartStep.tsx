@@ -1,13 +1,20 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ImageSourcePropType, TouchableOpacity } from 'react-native';
-import MapView from 'react-native-maps';
+import { View, Text, Image, StyleSheet, ImageSourcePropType, TouchableOpacity, Modal } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 import { LinearGradient } from 'expo-linear-gradient';
-// import sendSMS from '@/api/sosService';
+import { useState } from 'react';
+import { sendSMS } from '@/api/sosService';
 import { Link } from 'expo-router';
 
 const SavvyStepperMain = () => {
+  const [isMapFullscreen, setIsMapFullscreen] = useState(false);
+
+  const toggleMapFullscreen = () => {
+    setIsMapFullscreen(!isMapFullscreen);
+  };
+
   const handleButtonClick = () => {
-    //sendSMS("3476517362");
+    sendSMS("3476517362");
   }
 
   return (
@@ -36,11 +43,10 @@ const SavvyStepperMain = () => {
           style={styles.caneImage}
         />
         <View style={styles.statsContainer}>
-          <StatItem image="heart" label="Heart Rate" value="105" unit="min"/>
           <StatItem image='steps' label="Steps Today" value="742" unit="steps" />
         </View>
       </View>
-      <View style={styles.mapContainer}>
+      <TouchableOpacity onPress={toggleMapFullscreen} style={styles.mapContainer}>
         <MapView
           style={styles.map}
           initialRegion={{
@@ -49,8 +55,43 @@ const SavvyStepperMain = () => {
             latitudeDelta: 0.01,
             longitudeDelta: 0.01,
           }}
-        />
-      </View>
+        >
+          <Marker
+            coordinate={{ latitude: 42.3394, longitude: -71.0886 }}
+            title="Your Location"
+          />
+        </MapView>
+        <Text style={styles.mapText}>Tap to expand</Text>
+      </TouchableOpacity>
+      <Modal
+        animationType="slide"
+        transparent={false}
+        visible={isMapFullscreen}
+        onRequestClose={toggleMapFullscreen}
+      >
+        <View style={styles.fullscreenMapContainer}>
+          <MapView
+            style={styles.fullscreenMap}
+            initialRegion={{
+              latitude: 42.3394,
+              longitude: -71.0886,
+              latitudeDelta: 0.01,
+              longitudeDelta: 0.01,
+            }}
+          >
+            <Marker
+              coordinate={{ latitude: 42.3394, longitude: -71.0886 }}
+              title="Your Location"
+            />
+          </MapView>
+          <TouchableOpacity
+            style={styles.closeButton}
+            onPress={toggleMapFullscreen}
+          >
+            <Text style={styles.closeButtonText}>Close</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -218,6 +259,35 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
     borderRadius: 16,
+  },
+  mapText: {
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    padding: 5,
+    borderRadius: 5,
+    fontSize: 12,
+  },
+  fullscreenMapContainer: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  fullscreenMap: {
+    ...StyleSheet.absoluteFillObject,
+  },  
+  closeButton: {
+    position: 'absolute',
+    top: 40,
+    right: 20,
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 5,
+  },
+  closeButtonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   tabBar: {
     flexDirection: 'row',
